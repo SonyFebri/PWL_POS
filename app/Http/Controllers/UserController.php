@@ -5,17 +5,27 @@ use Illuminate\Http\Request;
 use App\Models\UserModel;
 use Illuminate\Support\Facades\Hash;
 
+
 class UserController extends Controller
 {
     public function index()
     {
-        $user = UserModel::firstOrNew([
-            'username' => 'manager33',
-            'nama' => 'Manager Tiga Tiga',
-            'password' => Hash::make('12345'),
-            'level_id' => 2
-        ], );
-        $user->save();
+        $user = UserModel::all();
         return view('user', ['data' => $user]);
+    }
+    public function tambah()
+    {
+        return view('user_tambah');
+    }
+    public function tambah_simpan(Request $request)
+    {
+        UserModel::create([
+            'username' => $request->username,
+            'nama' => $request->nama,
+            'password' => Hash::make($request->password),
+            'level_id' => $request->level_id
+        ]);
+        return redirect('/user');
+
     }
 }
