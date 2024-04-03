@@ -45,12 +45,6 @@ class KategoriController extends Controller
     public function store(StorePostRequest $request): RedirectResponse
     {
 
-        // $validated = $request->validateWithBag('category', [
-        //     'kategori_kode' => 'bail|required|unique:m_kategori|max:255',
-        //     'kategori_nama' => 'required'
-        // ]);
-
-
         $validated = $request->validated();
 
         $validated = $request->safe()->only(['kategori_kode', 'kategori_nama']);
