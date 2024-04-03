@@ -20,6 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/level', [LevelController::class, 'index']);
+
 Route::get('/user', [UserController::class, 'index']);
 route::get('/user/tambah', [UserController::class, 'tambah']);
 route::post('/user/tambah_simpan', [UserController::class, 'tambah_simpan']);
