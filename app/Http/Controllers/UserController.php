@@ -2,52 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePostRequest;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\LevelModel;
 use App\Models\UserModel;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function index()
     {
-
-        // $data = [
-        //     'username' => 'customer 1',
-        //     'nama' => 'Pelanggan',
-        //     'password' => Hash::make('12345'),
-        //     'level_id' => 1
-        // ];
-        // UserModel::insert($data);
-
-
+        // tambah data dengan Eloquent Model
         // $data = [
         //     'level_id' => 2,
         //     'username' => 'manager_tiga',
-        //     'nama' => 'Manager Tiga',
+        //     'nama' => 'Manager 3',
         //     'password' => Hash::make('12345')
         // ];
-        // UserModel::create($data);
+        // UserModel::create($data); // menambahkan data ke tabel m_user
 
-        // $user = UserModel::all();
-        // $user = UserModel::find(1);
-        // $user = UserModel::where('level_id', 1)->first();
+        // coba akses user model
+        // $user = UserModel::find(1); mengambil id 1 
+
+        // $user = UserModel::where('level_id', 1)->first(); mengambil 1 data teratas dgn level_id 1
+
         // $user = UserModel::firstWhere('level_id', 1);
-        // $user = UserModel::findOr(20, ['username', 'nama'], function() {
+
+        //$user = UserModel::findOr(1, ['username', 'nama'], function () {
         //     abort(404);
-        // });
-        // $user = UserModel::findOrFail(1);
-        // $user = UserModel::where('username', 'manager9')->firstorFail();
-        // $user = UserModel::where('level_id', 2)->count();
-        // dd($user);
-        // $user = UserModel::firstOrCreate(
-        //     [
-        //         'username' => 'manager',
-        //         'nama' => 'Manager'
-        //     ],
-        // );
+        // }); memfilter output dari data yang ingin dicari
+
+        // $user = UserModel::findOr(20, ['username', 'nama'], function () {
+        //     abort(404);
+        // }); tampilan ketika id tidak ada
+
+        // $user = UserModel::findOrFail(1); mengambil data dan jika tidak ada akan diberi exception
+
+        // $user = UserModel::where('username', 'manager9')->firstOrFail(); tampilan exception
+
+        // $user = UserModel::where('level_id', 2)->count(); menghitung row data yang keluar yang memiliki level id = 2
+
         // $user = UserModel::firstOrCreate(
         //     [
         //         'username' => 'manager22',
@@ -55,115 +48,114 @@ class UserController extends Controller
         //         'password' => Hash::make('12345'),
         //         'level_id' => 2
         //     ],
-        // );
-        // $user = UserModel::firstOrNew(
-        //     [
-        //         'username' => 'manager',
-        //         'nama' => 'Manager'
-        //     ]
-        //     );
+        // ); menambahkan data apabila tidak ada sekaligus menampilkan data tersebut atau hanya menampilkan data jika data tersebut telah direcord dalam table m_user
+
         // $user = UserModel::firstOrNew(
         //     [
         //         'username' => 'manager33',
         //         'nama' => 'Manager Tiga Tiga',
         //         'password' => Hash::make('12345'),
         //         'level_id' => 2
-        //     ]
+        //     ],
         // );
+        // $user->save(); membuat dan menyimpan data model
+
+        // $user = UserModel::create(
+        //     [
+        //         'username' => 'manager55',
+        //         'nama' => 'Manager55',
+        //         'password' => Hash::make('12345'),
+        //         'level_id' => 2
+        //     ],
+        // ); 
+
+        // $user->username = 'manager56';
+
+        // $user->isDirty(); //t karena data pernah berubah
+        // $user->isDirty('username'); //t
+        // $user->isDirty('nama'); //f
+        // $user->isDirty(['nama', 'username']); //t
+
+        // $user->isClean(); //f karena data pernah berubah
+        // $user->isClean('username'); //f
+        // $user->isClean('nama'); //t
+        // $user->isClean(['nama', 'username']); //f
+
         // $user->save();
 
-        // $user = UserModel::create([
-        //     'username' => 'manager55',
-        //     'nama' => 'Manager55',
-        //     'password' => Hash::make('12345'),
-        //     'level_id' => 2
-        // ]);
+        // $user->isDirty(); //false
+        // $user->isClean(); //true
+        // dd($user->isDirty()); Untuk mengetahui apakah data pernah diuubah atau tidak
 
-        // $user->username = 'manage56';
-        // $user->isDirty(); // true
-        // $user->isDirty('username'); // true
-        // $user->isDirty('nama'); // false
-        // $user->isDirty(['nama', 'username']); // true
-
-        // $user->isClean(); // false
-        // $user->isClean('username'); // false
-        // $user->isClean('nama'); // true
-        // $user->isClean(['nama', 'username']); // false
-
-        // $user->save();
-
-        // $user->isDirty(); // false
-        // $user->isClean(); // true
-        // dd($user->isDirty());
-        // $user->isDirty(); // false
-        // $user->isClean(); // true
-        // dd($user->isDirty());
-
-        // $user = UserModel::create([
-        //     'username' => 'manager11',
-        //     'nama' => 'Manager11',
-        //     'password' => Hash::make('12345'),
-        //     'level_id' => 2
-        // ]);
+        // $user = UserModel::create(
+        //     [
+        //         'username' => 'manager11',
+        //         'nama' => 'Manager11',
+        //         'password' => Hash::make('12345'),
+        //         'level_id' => 2
+        //     ],
+        // ); 
 
         // $user->username = 'manager12';
 
         // $user->save();
 
-        // $user->wasChanged(); // true
-        // $user->wasChanged('username'); // true
-        // $user->wasChanged(['username', 'level_id']); // true
-        // $user->wasChanged('nama'); // false
-        // $user->wasChanged(['nama', 'username']); // true
-        // dd($user->wasChanged(['nama', 'username'])); // true
+        // $user->wasChanged(); //t karena data pernah berubah
+        // $user->wasChanged('username'); //t
+        // $user->wasChanged(['username', 'level_id']); //t
+        // $user->wasChanged('nama'); //f
+        // $user->wasChanged(['nama', 'username']); //t
+        // dd($user->wasChanged(['nama', 'username'])); //true untuk cek data pernah diubah atau tidak sejak menjadi data model (blm disave)
 
         // $user = UserModel::all();
-
-
-        // return view('user', ['data' => $user]);
 
         $user = UserModel::with('level')->get();
         return view('user', ['data' => $user]);
     }
 
-    public function add()
+    public function tambah()
     {
-        return view('add_user');
+        $level = LevelModel::get();
+        return view('user_tambah', ['data' => $level]);
     }
 
-    public function add_save(StorePostRequest $request): RedirectResponse
+    public function tambah_simpan(Request $request)
     {
-
-        $validated = $request->validated();
-
-        $validated = $request->safe()->only(['username', 'nama', 'password', 'level_id']);
-        $validated = $request->safe()->except(['username', 'nama', 'password', 'level_id']);
-
-        UserModel::create($validated);
+        UserModel::create([
+            'username' => $request->username,
+            'nama' => $request->nama,
+            'password' => Hash::make('$request->password'),
+            'level_id' => $request->level_id
+        ]);
 
         return redirect('/user');
     }
 
-    public function update($id)
+    public function ubah($id)
     {
         $user = UserModel::find($id);
-        return view('user_update', ['data' => $user]);
+        return view('user_ubah', ['data' => $user]);
     }
 
-    public function update_save($id, Request $request)
+    public function ubah_simpan($id, Request $request)
     {
         $user = UserModel::find($id);
+
         $user->username = $request->username;
         $user->nama = $request->nama;
+        $user->password = Hash::make('$request->password');
         $user->level_id = $request->level_id;
+
         $user->save();
+
         return redirect('/user');
     }
 
-    public function delete($id)
+    public function hapus($id)
     {
         $user = UserModel::find($id);
         $user->delete();
+
         return redirect('/user');
     }
 }

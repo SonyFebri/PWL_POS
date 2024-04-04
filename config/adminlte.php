@@ -322,6 +322,16 @@ return [
             'label' => 4,
             'label_color' => 'success',
         ],
+        [
+            'text' => 'Kategori',
+            'url' => '/kategori',
+            'icon' => 'far fa-fw fa-file',
+        ],
+        [
+            'text' => 'User',
+            'url' => '/m_user',
+            'icon' => 'far fa-fw fa-file',
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
