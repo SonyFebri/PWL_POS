@@ -46,8 +46,9 @@ class PenjualanController extends Controller
                 $btn .= '<form class="d-inline-block" method="POST" action="' . url('/penjualan/' . $penjualan->penjualan_id) . '">'
                     . csrf_field()
                     . method_field('DELETE')
-                    . '<button type="submit" class="btn btn-danger btn-sm onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button>'
+                    . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button>'
                     . '</form>';
+
                 return $btn;
             })
             ->rawColumns(['aksi'])
@@ -69,7 +70,7 @@ class PenjualanController extends Controller
         $barang = BarangModel::with('kategori', 'stok')->get();
 
         $counter = (PenjualanModel::selectRaw("CAST(RIGHT(penjualan_kode, 3) AS UNSIGNED) AS counter")->orderBy('penjualan_id', 'desc')->value('counter')) + 1;
-        $penjualan_kode = 'JL' . sprintf("%03d", $counter);
+        $penjualan_kode = 'PJN' . sprintf("%03d", $counter);
 
         $activeMenu = 'penjualan';
 

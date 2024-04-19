@@ -70,7 +70,7 @@
     </div>
     <div class="card mx-3">
         <div class="card-body">
-            <h2 class="font-weight-bolder">Grand Total :  
+            <h2 class="font-weight-bolder">Total :  
                 <span>{{ Number::currency($total, 'IDR') }}</span>
             </h2>
         </div>
