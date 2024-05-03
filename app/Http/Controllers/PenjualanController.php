@@ -48,7 +48,6 @@ class PenjualanController extends Controller
                     . method_field('DELETE')
                     . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button>'
                     . '</form>';
-
                 return $btn;
             })
             ->rawColumns(['aksi'])
@@ -151,6 +150,7 @@ class PenjualanController extends Controller
         }
 
         try {
+            PenjualanDetailModel::where('penjualan_id', $id)->delete();
             PenjualanModel::destroy($id);
             return redirect('/penjualan')->with('success', 'Data penjualan berhasil dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
